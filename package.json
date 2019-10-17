@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "discord.js": "^11.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "random-puppy": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

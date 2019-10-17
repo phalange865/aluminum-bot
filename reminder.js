@@ -1,4 +1,3 @@
-'use strict'
 require('dotenv').config()
 
 const Discord = require('discord.js')
@@ -11,15 +10,21 @@ client.login(process.env.BOT_TOKEN).then(() => {
   if(guild && guild.channels.get(process.env.CHANNEL_ID)){
 
     //GET message
-    var message = require('../message.json');
+    var message = require('./message/message.json');
 
     //SEND message :)
-    guild.channels.get(process.env.CHANNEL_ID).send(message.name + " " + message.message).then(() => client.destroy());
+    let rythm = bot.users.find("username", "Rythm").presence.status
+
+    if(rythm !== 'offline'){
+      guild.channels.get(process.env.CHANNEL_ID).send("!play its time to stop").then(() => client.destroy());
+    }
+
+    guild.channels.get(process.env.CHANNEL_ID).send("<@594396794658750465>,"+message.name + " " + message.message).then(() => client.destroy());
+
     //END
-
-
   }
   else{
+    return;
     //throw error or best do nothing haha
   }
 
