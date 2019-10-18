@@ -49,8 +49,10 @@ bot.login(process.env.BOT_TOKEN);
 //custom functions
 function myMessages(message){
   const MongoClient = require('mongodb').MongoClient
+  const uri = process.env.MONGODB_URI
   var content = message.content.toLowerCase();
   var collected;
+
   MongoClient.connect(uri, function(err, db) {
     if (err) {
       console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
