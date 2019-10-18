@@ -1,74 +1,12 @@
-require('dotenv').config()
+const MongoClient = require('mongodb').MongoClient
+const uri = "mongodb://heroku_wmh62vg1:oa6ab4v6f6cf7tj65hga56ng0g@ds335668.mlab.com:35668/heroku_wmh62vg1"
 
-const Discord = require("discord.js");
-const fs = require("fs");
-const bot = new Discord.Client();
-
-// When bot ready
-bot.on("ready", async () => {
-  console.log(`${bot.user.username} is ready for action!`);
-  bot.user.setActivity("Jackstone");
-});
-
-// Load commands
-bot.commands = new Discord.Collection();
-fs.readdir("./commands/", (err, files) => {
-  if (err) console.error(err);
-  let jsfiles = files.filter(f => f.split(".").pop() === "js");
-
-  if (jsfiles.length <= 0) return console.log("There are no commands to load...");
-
-  console.log(`Loading ${jsfiles.length} commands...`);
-  jsfiles.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${i + 1}: ${f} loaded!`);
-    bot.commands.set(props.help.name, props);
-  });
-});
-
-// Message event
-bot.on("message", async message => {
-  if (message.author.bot) return;
-  if (message.channel.type === "dm") return;
-
-  let prefix = process.env.PREFIX;
-  let messageArray = message.content.split(" ");
-  let command = messageArray[0].toLowerCase();
-  let args = messageArray.slice(1);
-
-  if (!command.startsWith(prefix)){
-    myMessages(message);
+MongoClient.connect(uri, function(err, db) {
+  if (err) {
+    console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
   }else{
-    let cmd = bot.commands.get(command.slice(prefix.length));
-    if (cmd) cmd.run(bot, message, args);
+    console.log("Database created!");
+    db.close();
   }
+
 });
-
-bot.login(process.env.BOT_TOKEN);
-
-//custom functions
-function myMessages(message){
-  var msg = require('./json/replies.json');
-  var content = message.content.toLowerCase();
-
-  switch(content) {
-    case 'wer u':
-    message.channel.send(msg.wer);
-    break;
-    case 'bi':
-    message.channel.send(msg.bi);
-    break;
-    case 'aluminum':
-    message.channel.send(msg.aluminum);
-    break;
-    case 'antimony':
-    message.channel.send(msg.antimony);
-    break;
-    case 'argon':
-    message.channel.send(msg.argon);
-    break;
-    case 'potassium':
-    message.channel.send(msg.potassium);
-    break;
-  }
-}

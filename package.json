@@ -9,6 +9,7 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
+    "mongodb": "^3.3.3",
     "random-puppy": "^1.1.0"
   },
   "devDependencies": {
