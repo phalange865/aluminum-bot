@@ -60,7 +60,6 @@ function myMessages(message){
       var dbo = db.db("heroku_wmh62vg1");
       var collection = dbo.collection("replies");
         collection.find().toArray((err, items) => {
-
           switch(content) {
             case 'wer u':
             message.channel.send(items[0].wer);
