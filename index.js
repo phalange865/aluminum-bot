@@ -51,7 +51,6 @@ function myMessages(message){
   const MongoClient = require('mongodb').MongoClient
   const uri = process.env.MONGODB_URI
   var content = message.content.toLowerCase();
-  var collected;
 
   MongoClient.connect(uri, function(err, db) {
     if (err) {
@@ -61,31 +60,28 @@ function myMessages(message){
       var dbo = db.db("heroku_wmh62vg1");
       var collection = dbo.collection("replies");
         collection.find().toArray((err, items) => {
-        console.log(items)
-        collected  = items;
+
+          switch(content) {
+            case 'wer u':
+            message.channel.send(items[0].wer);
+            break;
+            case 'bi':
+            message.channel.send(items[0].bi);
+            break;
+            case 'aluminum':
+            message.channel.send(items[0].aluminum);
+            break;
+            case 'antimony':
+            message.channel.send(items[0].antimony);
+            break;
+            case 'argon':
+            message.channel.send(items[0].argon);
+            break;
+            case 'potassium':
+            message.channel.send(items[0].potassium);
+            break;
+          }
       });
     }
   });
-
-  console.log(collected);
-  switch(content) {
-    case 'wer u':
-    message.channel.send(collected[0].wer);
-    break;
-    case 'bi':
-    message.channel.send(collected[0].bi);
-    break;
-    case 'aluminum':
-    message.channel.send(collected[0].aluminum);
-    break;
-    case 'antimony':
-    message.channel.send(collected[0].antimony);
-    break;
-    case 'argon':
-    message.channel.send(collected[0].argon);
-    break;
-    case 'potassium':
-    message.channel.send(collected[0].potassium);
-    break;
-  }
 }
