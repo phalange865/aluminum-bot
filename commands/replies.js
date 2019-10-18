@@ -15,14 +15,13 @@ module.exports.run = async (bot, message, args) => {
     else{
       var dbo = db.db("heroku_wmh62vg1");
       var collection = dbo.collection("replies");
-      var myquery = { "_id": "1" };
+      var myquery = { "_id": 1 };
       var newvalues = { $set: {  wer: data[0], bi: data[1], aluminum: data[2], antimony: data[3], argon: data[4], potassium: data[5] } };
       dbo.collection("customers").update(myquery, newvalues, function(err, res) {
         if (err) throw err;
-        console.log("1 document updated");
+        console.log(res);
         db.close();
       });
-      db.close();
     }
   });
 };
