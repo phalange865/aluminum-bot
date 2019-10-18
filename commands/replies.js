@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
       var newvalues = { $set: {  "wer": data[0], "bi": data[1], "aluminum": data[2], "antimony": data[3], "argon": data[4], "potassium": data[5] } };
       collection.update(myquery, newvalues, function(err, res) {
         if (err) throw err;
-        console.log(res);
+        message.channel.send("done!");
         db.close();
       });
     }

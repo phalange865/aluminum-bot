@@ -48,27 +48,42 @@ bot.login(process.env.BOT_TOKEN);
 
 //custom functions
 function myMessages(message){
-  var msg = require('./json/replies.json');
+  const MongoClient = require('mongodb').MongoClient
   var content = message.content.toLowerCase();
+  var collected;
+  MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+    }
+    else{
+      var dbo = db.db("heroku_wmh62vg1");
+      var collection = dbo.collection("replies");
+        collection.find().toArray((err, items) => {
+        console.log(items)
+        collected  = items;
+      });
+    }
+  });
 
+  console.log(collected);
   switch(content) {
     case 'wer u':
-    message.channel.send(msg.wer);
+    message.channel.send(collected[0].wer);
     break;
     case 'bi':
-    message.channel.send(msg.bi);
+    message.channel.send(collected[0].bi);
     break;
     case 'aluminum':
-    message.channel.send(msg.aluminum);
+    message.channel.send(collected[0].aluminum);
     break;
     case 'antimony':
-    message.channel.send(msg.antimony);
+    message.channel.send(collected[0].antimony);
     break;
     case 'argon':
-    message.channel.send(msg.argon);
+    message.channel.send(collected[0].argon);
     break;
     case 'potassium':
-    message.channel.send(msg.potassium);
+    message.channel.send(collected[0].potassium);
     break;
   }
 }
