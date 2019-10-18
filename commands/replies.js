@@ -1,12 +1,12 @@
 const discord = require("discord.js");
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient
-const uri = process.env.MONGODB_URI
 
 module.exports.run = async (bot, message, args) => {
 
   const msg = message.content.match(/\((.*)\)/)[1];
   const data = msg.split(",")
+  const uri = process.env.MONGODB_URI
 
   MongoClient.connect(uri, function(err, db) {
     if (err) {
