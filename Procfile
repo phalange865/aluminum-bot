@@ -1,1 +1,1 @@
-worker: node reminder.js
+worker: node index.js
