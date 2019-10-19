@@ -22,6 +22,7 @@ client.login(process.env.BOT_TOKEN).then(() => {
             guild.channels.get(process.env.CHANNEL_ID).send("<@594396794658750465>,"+items[0].name + " " + items[0].message);
             guild.channels.get(process.env.CHANNEL_ID).send("<@594396794658750465>,"+items[0].name + " " + items[0].message);
           })
+          console.log(collection)
         }
       });
   }
