@@ -8,6 +8,8 @@ client.login(process.env.BOT_TOKEN).then(() => {
   var guild = client.guilds.get(process.env.GUILD_ID);
   var channel = guild.channels.get(process.env.CHANNEL_ID);
   const uri = process.env.MONGODB_URI
+  console.log(guild)
+  console.log(channel)
 
   if(guild && channel){
       MongoClient.connect(uri, function(err, db) {
