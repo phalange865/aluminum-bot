@@ -62,12 +62,12 @@ function myMessages(message){
         collection.find().toArray((err, items) => {
 
           switch(content) {
-            case 'wer u':
-            message.channel.send(items[0].wer);
-            break;
-            case 'bi':
-            message.channel.send(items[0].bi);
-            break;
+//             case 'wer u':
+//             message.channel.send(items[0].wer);
+//             break;
+//             case 'bi':
+//             message.channel.send(items[0].bi);
+//             break;
             case 'aluminum':
             message.channel.send(items[0].aluminum);
             break;
